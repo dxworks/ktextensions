@@ -9,7 +9,7 @@
     "kotlin"
   ],
   "author": "Mario Rivis <mario.rivis@gmail.com>",
-  "homepage": "https://github.com/dxworks/cli#readme",
+  "homepage": "https://github.com/dxworks/ktextensions#readme",
   "license": "Apache-2.0",
   "main": "dist/index.js",
   "directories": {
@@ -23,12 +23,12 @@
   "typings": "typings/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dxworks/cli.git"
+    "url": "git+https://github.com/dxworks/ktextensions.git"
   },
   "scripts": {
     "clean": "rimraf dist *.tsbuildinfo",
     "create": "npm run build && npm run test",
-    "build": "npm run clean && tsc -p tsconfig.build.json",
+    "build": "npm run clean && tsc -p tsconfig.build.json && copyfiles typings/index.d.ts dist -u 1",
     "refresh": "rm -rf ./node_modules package-lock.json && npm install",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
@@ -36,19 +36,23 @@
     "test:dev": "jest --watch"
   },
   "bugs": {
-    "url": "https://github.com/dxworks/cli/issues"
+    "url": "https://github.com/dxworks/ktextensions/issues"
   },
   "devDependencies": {
     "@types/jest": "^27.0.2",
-    "jest": "^27.2.4",
-    "ts-jest": "^27.0.5",
-    "ts-node": "^10.2.1",
-    "typescript": "^4.4.3",
-    "eslint": "^7.32.0",
     "@typescript-eslint/eslint-plugin": "^4.32.0",
-    "@typescript-eslint/parser": "^4.32.0"
+    "@typescript-eslint/parser": "^4.32.0",
+    "copyfiles": "^2.4.1",
+    "eslint": "^7.32.0",
+    "jest": "^27.2.4",
+    "json": "^11.0.0",
+    "ts-jest": "^27.0.5",
+    "ts-node": "^10.2.1"
+  },
+  "dependencies": {
+    "typescript": "^4.4.3"
   },
   "publishConfig": {
-    "registry":"https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com"
   }
 }
