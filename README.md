@@ -8,13 +8,13 @@ Run the following command to install
 ```
 npm i @dx-works/ktextensions
 ```
-In `tsconfig.json` add the following file:
-```json
-{
-    "files": [
-        "./node_modules/@dxworks/ktextensions/typings/index.d.ts"
-    ]
-}
+
+To access the implementations import the main module or only the submodules you need:
+```javascript
+import '@dx-works/ktextensions' // import the main module that contains the implementation for all extension functions
+or
+import '@dx-works/ktextensions/dist/string' // import only implementation for String extensions functions
+import '@dx-works/ktextensions/dist/array' // import only implementation for Array extensions functions
 ```
 
 ## Extension Functions

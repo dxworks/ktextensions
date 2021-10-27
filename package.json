@@ -12,18 +12,20 @@
   "homepage": "https://github.com/dxworks/ktextensions#readme",
   "license": "Apache-2.0",
   "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "directories": {
     "lib": "dist",
     "test": "__tests__"
   },
   "files": [
-    "dist",
-    "typings/index.d.ts"
+    "dist"
   ],
-  "typings": "typings/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dxworks/ktextensions.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dxworks/ktextensions/issues"
   },
   "scripts": {
     "clean": "rimraf dist *.tsbuildinfo",
@@ -34,9 +36,6 @@
     "lint:fix": "eslint src --ext .ts --fix",
     "test": "jest --passWithNoTests",
     "test:dev": "jest --watch"
-  },
-  "bugs": {
-    "url": "https://github.com/dxworks/ktextensions/issues"
   },
   "devDependencies": {
     "@types/jest": "^27.0.2",
@@ -53,6 +52,7 @@
     "typescript": "^4.4.3"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
   }
 }
