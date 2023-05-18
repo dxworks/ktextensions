@@ -3,7 +3,7 @@ String.prototype.replaceBefore = function (delimiter: string, replacement?: stri
   if (index === -1)
     return this.toString()
   else
-    return (replacement || '') + this.substring(this.indexOf(delimiter));
+    return (replacement || '') + this.substring(this.indexOf(delimiter))
 }
 
 String.prototype.removePrefix = function (prefix: string) {
