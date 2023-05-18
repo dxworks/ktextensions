@@ -35,17 +35,17 @@ jobs:
             registry-url: 'https://npm.pkg.github.com'
             scope: '@dxworks'
 
-        - name: Setup Version
-          run: json -I -f package.json -e "this.version='$VERSION'"
-          env:
-            VERSION: ${{ steps.semver_parser.outputs.semver }}
-
         - name: Npm CI
           run: npm ci
         - name: Build
           run: npm run build --if-present
         - name: Test
           run: npm test
+
+        - name: Setup Version
+          run: json -I -f package.json -e "this.version='$VERSION'"
+          env:
+            VERSION: ${{ steps.semver_parser.outputs.semver }}
 
         - name: Publish on Github Package Registry
           run: npm publish
