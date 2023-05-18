@@ -57,6 +57,8 @@ jobs:
           with:
             node-version: '18.x'
             cache: 'npm'
+            registry-url: 'https://registry.npmjs.org'
+            scope: '@dxworks'
 
         - name: Publish on NPM
           run: npm publish --access public
