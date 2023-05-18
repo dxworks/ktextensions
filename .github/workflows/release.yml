@@ -1,0 +1,78 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+
+jobs:
+    release:
+      name: Publish NPM Package & Create Release
+      runs-on: ubuntu-latest
+      permissions:
+        contents: write
+        packages: write
+
+      steps:
+        - uses: actions/checkout@v3
+
+        - name: Extract Semver
+          id: semver_parser
+          run: |
+            semver=${TAG#"refs/tags/v"}
+            semver=${semver%"-voyager"}
+            
+            echo ::set-output name=semver::$semver
+          env:
+            TAG: ${{ github.ref }}
+
+        - name: Setup Node with Github Package Registry
+          uses: actions/setup-node@v3
+          with:
+            node-version: '18.x'
+            cache: 'npm'
+            registry-url: 'https://npm.pkg.github.com'
+            scope: '@dxworks'
+
+        - name: Setup Version
+          run: node_modules/.bin/json -I -f package.json -e "this.version='$VERSION'"
+          env:
+            VERSION: ${{ steps.semver_parser.outputs.semver }}
+
+        - name: Npm CI
+          run: npm ci
+        - name: Build
+          run: npm run build --if-present
+        - name: Test
+          run: npm test
+
+        - name: Publish on Github Package Registry
+          run: npm publish
+          env:
+            NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+        - name: Setup Node with NPM Package Registry
+          uses: actions/setup-node@v3
+          with:
+            node-version: '18.x'
+            cache: 'npm'
+
+        - name: Publish on NPM
+          run: npm publish --access public
+          env:
+            NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+        - name: Prepare Release Notes
+          run: touch ${{ github.workspace }}/releaseNotes/v${{ steps.semver_parser.outputs.semver }}.md
+
+        - name: Create Release
+          id: create_release
+          uses: softprops/action-gh-release@v1
+          with:
+            name: Dx ${{ steps.semver_parser.outputs.semver }}
+            body_path: ${{ github.workspace }}/releaseNotes/v${{ steps.semver_parser.outputs.semver }}.md
+            body: ""
+            prerelease: false
+            draft: false
+            fail_on_unmatched_files: true
