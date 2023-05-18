@@ -36,7 +36,7 @@ jobs:
             scope: '@dxworks'
 
         - name: Setup Version
-          run: node_modules/.bin/json -I -f package.json -e "this.version='$VERSION'"
+          run: json -I -f package.json -e "this.version='$VERSION'"
           env:
             VERSION: ${{ steps.semver_parser.outputs.semver }}
 
