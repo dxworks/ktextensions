@@ -72,7 +72,7 @@ jobs:
           id: create_release
           uses: softprops/action-gh-release@v1
           with:
-            name: Dx ${{ steps.semver_parser.outputs.semver }}
+            name: ktextensions ${{ steps.semver_parser.outputs.semver }}
             body_path: ${{ github.workspace }}/releaseNotes/v${{ steps.semver_parser.outputs.semver }}.md
             body: ""
             prerelease: false
