@@ -1,4 +1,4 @@
-import './string'
-import './array'
+import './string/string'
+import './array/array'
 
 export {}
